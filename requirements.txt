@@ -1,0 +1,12 @@
+requests
+pandas
+google-cloud-bigquery
+google-cloud-bigquery-storage
+pyarrow
+db-dtypes
+matplotlib
+seaborn
+plotly
+scikit-learn
+numpy
+python-dotenv
