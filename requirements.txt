@@ -10,3 +10,4 @@ plotly
 scikit-learn
 numpy
 python-dotenv
+pandas-gbq
