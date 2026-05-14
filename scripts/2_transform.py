@@ -6,7 +6,7 @@ def transform():
     today = date.today().isoformat()
     raw_path = f"data/raw/{today}.csv"
     
-    print(f"📖 Đọc file: {raw_path}")
+    print(f" Đọc file: {raw_path}")
     df = pd.read_csv(raw_path)
     
     print(f"   Shape ban đầu: {df.shape}")
@@ -22,7 +22,7 @@ def transform():
     # Nhiệt độ Việt Nam không thể âm sâu hay trên 50°C
     invalid_temp = df[(df["temp_c"] < -10) | (df["temp_c"] > 50)]
     if len(invalid_temp) > 0:
-        print(f"\n⚠️  Nhiệt độ bất thường:\n{invalid_temp[['city','temp_c']]}")
+        print(f"\n  Nhiệt độ bất thường:\n{invalid_temp[['city','temp_c']]}")
     
     # Humidity phải trong [0, 100]
     df["humidity_pct"] = df["humidity_pct"].clip(0, 100)
@@ -59,7 +59,7 @@ def transform():
     clean_path = f"data/clean/{today}.csv"
     df.to_csv(clean_path, index=False)
     
-    print(f"\n✅ Đã lưu {len(df)} dòng sạch vào {clean_path}")
+    print(f"\n Đã lưu {len(df)} dòng sạch vào {clean_path}")
     print(df[["city", "temp_c", "humidity_pct", "weather_desc", "temp_category"]])
 
 

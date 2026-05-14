@@ -1,7 +1,11 @@
+import dotenv
 import requests
 import pandas as pd
 from datetime import date
 import os
+from dotenv import load_dotenv
+
+load_dotenv(override=True)  # Tự động load .env vào biến môi trường
 
 # ── Danh sách các thành phố muốn theo dõi ──────────────────────────────────
 CITIES = [
@@ -69,10 +73,10 @@ def extract():
         try:
             row = get_weather(city, api_key)
             rows.append(row)
-            print(f"  ✅ {city}: {row['temp_c']}°C, {row['weather_desc']}")
+            print(f" {city}: {row['temp_c']}°C, {row['weather_desc']}")
         except Exception as e:
             # Nếu một thành phố lỗi thì bỏ qua, không dừng toàn bộ
-            print(f"  ❌ {city}: {e}")
+            print(f" NO {city}: {e}")
     
     df = pd.DataFrame(rows)
     
@@ -82,7 +86,7 @@ def extract():
     path = f"data/raw/{today}.csv"
     df.to_csv(path, index=False)
     
-    print(f"\n📦 Đã lưu {len(df)} dòng vào {path}")
+    print(f"\n Đã lưu {len(df)} dòng vào {path}")
     print(df)
 
 

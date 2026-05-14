@@ -1,0 +1,60 @@
+# Tên hiển thị trên tab GitHub Actions
+name: Daily Weather Pipeline
+
+# ── PHẦN 1: KHI NÀO CHẠY ────────────────────────────────────────────────────
+on:
+  schedule:
+    # Cú pháp cron: "phút giờ ngày tháng thứ"
+    # 0 17 * * * = lúc 17:00 UTC = 00:00 giờ Việt Nam
+    - cron: "0 17 * * *"
+  
+  # Cho phép bấm nút chạy thủ công trên GitHub để test
+  workflow_dispatch:
+
+# ── PHẦN 2: DANH SÁCH CÔNG VIỆC ─────────────────────────────────────────────
+jobs:
+  run-pipeline:
+    # Dùng máy chủ ảo Ubuntu mới nhất (miễn phí)
+    runs-on: ubuntu-latest
+
+    # ── PHẦN 3: CÁC BƯỚC THỰC HIỆN ──────────────────────────────────────────
+    steps:
+
+      # BƯỚC 1: Tải code từ GitHub repo về máy chủ ảo
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      # BƯỚC 2: Cài Python 3.11 trên máy chủ ảo
+      - name: Cài Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+
+      # BƯỚC 3: Đọc requirements.txt và cài tất cả thư viện
+      - name: Cài thư viện
+        run: pip install -r requirements.txt
+
+      # BƯỚC 4: Chạy 1_extract.py - cào data từ OpenWeather
+      - name: Extract
+        env:
+          OPENWEATHER_API_KEY: ${{ secrets.OPENWEATHER_API_KEY }}
+        run: python scripts/1_extract.py
+
+      # BƯỚC 5: Chạy 2_transform.py - làm sạch data
+      - name: Transform
+        run: python scripts/2_transform.py
+
+      # BƯỚC 6: Chạy 3_load.py - đẩy lên BigQuery
+      - name: Load lên BigQuery
+        env:
+          GCP_KEY_JSON: ${{ secrets.GCP_KEY_JSON }}
+        run: python scripts/3_load.py
+
+      # BƯỚC 7: Commit CSV vào GitHub repo (lưu Data Lake)
+      - name: Lưu CSV vào GitHub
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git add data/raw/ data/clean/
+          git commit -m "🌤️ Auto pipeline: $(date '+%Y-%m-%d')" || echo "Không có file mới"
+          git push

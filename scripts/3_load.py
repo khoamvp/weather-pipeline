@@ -3,12 +3,14 @@ from google.cloud import bigquery
 from google.oauth2 import service_account
 from datetime import date
 import json, os
+from dotenv import load_dotenv
 
+load_dotenv() 
 def load():
     today = date.today().isoformat()
     clean_path = f"data/clean/{today}.csv"
     
-    print(f"📖 Đọc file sạch: {clean_path}")
+    print(f" Đọc file sạch: {clean_path}")
     df = pd.read_csv(clean_path)
     # ── Kết nối BigQuery ────────────────────────────────────────────────────
     # Đọc key JSON từ biến môi trường (đã lưu trong GitHub Secrets)
@@ -42,7 +44,7 @@ def load():
     
     # ── Xác nhận ────────────────────────────────────────────────────────────
     table = client.get_table(table_id)
-    print(f"✅ Đã load {len(df)} dòng lên BigQuery")
+    print(f" Đã load {len(df)} dòng lên BigQuery")
     print(f"   Bảng hiện có tổng cộng {table.num_rows} dòng")
 
 

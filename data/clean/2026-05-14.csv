@@ -1,0 +1,6 @@
+city,country,temp_c,feels_like_c,temp_min_c,temp_max_c,humidity_pct,pressure_hpa,weather_main,weather_desc,wind_speed_ms,wind_deg,cloudiness_pct,visibility_m,extracted_at,extracted_date,heat_index,temp_category
+Ho Chi Minh City,VN,31.1,37.5,31.1,31.1,69,1008,Clouds,mây rải rác,3.68,184,43,10000,2026-05-14 14:35:36.069436+00:00,2026-05-14,28.5,nóng
+Hanoi,VN,29.0,33.0,29.0,29.0,72,1001,Clouds,mây cụm,4.21,135,68,10000,2026-05-14 14:35:37.632453+00:00,2026-05-14,26.5,mát
+Da Nang,VN,28.1,32.9,28.1,28.1,84,1007,Clouds,mây đen u ám,3.29,208,100,10000,2026-05-14 14:35:39.461834+00:00,2026-05-14,25.8,mát
+Can Tho,VN,29.2,35.6,29.2,29.2,81,1008,Clouds,mây đen u ám,2.91,231,92,10000,2026-05-14 14:35:40.473260+00:00,2026-05-14,26.8,mát
+Hue,VN,27.2,29.1,27.2,27.2,70,1005,Clouds,mây đen u ám,1.59,181,99,10000,2026-05-14 14:35:41.433802+00:00,2026-05-14,24.6,mát
