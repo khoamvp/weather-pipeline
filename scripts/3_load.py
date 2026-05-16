@@ -2,47 +2,48 @@ import pandas as pd
 from google.cloud import bigquery
 from google.oauth2 import service_account
 from datetime import date
-import json, os
+import json, os, glob
 from dotenv import load_dotenv
 
-load_dotenv() 
+load_dotenv()
+
 def load():
-    today = date.today().isoformat()
-    clean_path = f"data/clean/{today}.csv"
-    
-    print(f" Đọc file sạch: {clean_path}")
-    df = pd.read_csv(clean_path)
+    # ── Đọc toàn bộ file clean thay vì chỉ hôm nay ─────────────────────────
+    all_files = glob.glob("data/clean/*.csv")
+    if not all_files:
+        print(" Không có file nào trong data/clean/")
+        return
+
+    df = pd.concat([pd.read_csv(f) for f in all_files], ignore_index=True)
+
+    # Xoá duplicate phòng chạy lại nhiều lần trong ngày
+    df = df.drop_duplicates(subset=["city", "extracted_date"], keep="last")
+
+    print(f" Tổng {len(df)} dòng từ {len(all_files)} file")
+
     # ── Kết nối BigQuery ────────────────────────────────────────────────────
-    # Đọc key JSON từ biến môi trường (đã lưu trong GitHub Secrets)
     key_info = json.loads(os.environ["GCP_KEY_JSON"])
-    
     credentials = service_account.Credentials.from_service_account_info(
         key_info,
         scopes=["https://www.googleapis.com/auth/cloud-platform"]
     )
-    
     client = bigquery.Client(
         credentials=credentials,
         project=key_info["project_id"]
     )
-    
-    # ── Định nghĩa bảng đích ────────────────────────────────────────────────
-    # Cú pháp: project_id.dataset_id.table_id
+
     table_id = f"{key_info['project_id']}.weather_data.daily_weather"
-    
-    # ── Cấu hình cách load ──────────────────────────────────────────────────
+
+    # ── WRITE_TRUNCATE: xoá toàn bộ bảng rồi ghi lại ──────────────────────
+    # Không dùng DELETE vì free tier không cho phép DML
     job_config = bigquery.LoadJobConfig(
-        # WRITE_APPEND = thêm dòng mới vào cuối, không xóa dữ liệu cũ
-        # (nếu dùng WRITE_TRUNCATE thì sẽ xóa hết rồi ghi lại — không muốn vậy)
-        write_disposition="WRITE_APPEND",
-        autodetect=True,  # tự đoán kiểu dữ liệu của mỗi cột
+        write_disposition="WRITE_TRUNCATE",
+        autodetect=True,
     )
-    
-    # ── Đẩy dữ liệu lên ────────────────────────────────────────────────────
+
     job = client.load_table_from_dataframe(df, table_id, job_config=job_config)
-    job.result()  # chờ job hoàn tất (blocking)
-    
-    # ── Xác nhận ────────────────────────────────────────────────────────────
+    job.result()
+
     table = client.get_table(table_id)
     print(f" Đã load {len(df)} dòng lên BigQuery")
     print(f"   Bảng hiện có tổng cộng {table.num_rows} dòng")
