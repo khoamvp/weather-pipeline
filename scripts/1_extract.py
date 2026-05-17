@@ -10,10 +10,10 @@ load_dotenv(override=True)  # Tự động load .env vào biến môi trường
 # ── Danh sách các thành phố muốn theo dõi ──────────────────────────────────
 CITIES = [
     "Ho Chi Minh City",
-    "Hanoi",
-    "Da Nang",
-    "Can Tho",
-    "Hue",
+    "Bien Hoa",
+    "Vung Tau",
+    "Thu Dau Mot",
+    "Ba Ria",
 ]
 
 # ── Hàm gọi API cho một thành phố ──────────────────────────────────────────
