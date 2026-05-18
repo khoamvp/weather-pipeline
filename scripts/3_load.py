@@ -8,7 +8,7 @@ from dotenv import load_dotenv
 load_dotenv()
 
 def load():
-    # ── Đọc toàn bộ file clean thay vì chỉ hôm nay ─────────────────────────
+    # Đọc toàn bộ file clean thay vì chỉ hôm nay 
     all_files = glob.glob("data/clean/*.csv")
     if not all_files:
         print(" Không có file nào trong data/clean/")
@@ -21,7 +21,7 @@ def load():
 
     print(f" Tổng {len(df)} dòng từ {len(all_files)} file")
 
-    # ── Kết nối BigQuery ────────────────────────────────────────────────────
+    # Kết nối BigQuery 
     key_info = json.loads(os.environ["GCP_KEY_JSON"])
     credentials = service_account.Credentials.from_service_account_info(
         key_info,
@@ -34,8 +34,7 @@ def load():
 
     table_id = f"{key_info['project_id']}.weather_data.daily_weather"
 
-    # ── WRITE_TRUNCATE: xoá toàn bộ bảng rồi ghi lại ──────────────────────
-    # Không dùng DELETE vì free tier không cho phép DML
+    #WRITE_TRUNCATE: xoá toàn bộ bảng rồi ghi lại 
     job_config = bigquery.LoadJobConfig(
         write_disposition="WRITE_TRUNCATE",
         autodetect=True,

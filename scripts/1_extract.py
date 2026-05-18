@@ -30,7 +30,7 @@ def get_weather(city, api_key):
     params = {
         "q": city,
         "appid": api_key,
-        "units": "metric",   # Celsius
+        "units": "metric",   
         "lang": "vi"         # mô tả thời tiết bằng tiếng Việt
     }
     response = requests.get(url, params=params)
@@ -56,7 +56,8 @@ def get_weather(city, api_key):
         "wind_deg":         data["wind"].get("deg", None),   # .get() vì đôi khi thiếu
         "cloudiness_pct":   data["clouds"]["all"],
         "visibility_m":     data.get("visibility", None),
-        "extracted_at":     pd.Timestamp.utcnow().isoformat(),  # thời điểm lấy data
+        "extracted_at": (
+    pd.Timestamp.now(tz="Asia/Ho_Chi_Minh").strftime("%Y-%m-%d %H:%M:%S")),  # thời điểm lấy data
         "extracted_date":   date.today().isoformat(),           # ngày lấy data
     }
 
