@@ -1,0 +1,28 @@
+API
+    1. {"cod":401, "message": "Invalid API key. Please see https://openweathermap.org/faq#error401 for more info."}
+        → 401 nghĩa là key chưa được kích hoạt — hoàn toàn bình thường, OpenWeather cần 10-15 phút sau khi đăng ký mới kích hoạt key.
+    2. API không cho xem file trực tiếp như Google Drive hay Excel — nó chỉ trả về data dạng JSON khi bạn gọi.
+    3. Đọc API key từ biến môi trường — không ghi cứng key vào code vì code sẽ đẩy lên GitHub public. Biến môi trường được set ở ngoài, code chỉ đọc vào
+
+CÁC LỆNH DÙNG TRONG TERMINAL
+    pip list: xem danh sách thư viện
+    pip uninstall (tên thư viện): gỡ cài đặt thư viện 
+    pip install (tên thư viện): cài đặt thư viện
+    export OPENWEATHER_API_KEY="your_api_key_here"
+        Biến set bằng export chỉ tồn tại trong session hiện tại → đóng terminal là mất
+        Không commit API key lên GitHub
+    Trường hợp tải lần đầu (Clone): git clone <đường-link-vừa-copy>
+    Trường hợp đã có code trên máy và muốn cập nhật (Pull): 
+        git pull: gộp 2 nhánh (local + remote) lại với nhau
+            Không thay đổi commit cũ
+            Tạo thêm 1 commit mới (M)
+            Lịch sử dạng có nhánh
+        git pull -- rebase: Đưa commit local đặt lại lên sau remote mới nhất
+            Không tạo merge commit
+            Commit local bị “viết lại”
+            Lịch sử dạng thẳng hàng
+THƯ VIỆN
+    ta lưu Key vào trong file .env (file text) ta phải from dotenv import load_dotenv để đọc key                                
+    load_dotenv() :  Python đọc file .env → đưa biến vào system environment
+        
+    
