@@ -5,8 +5,8 @@ name: Daily Weather Pipeline
 on:
   schedule:
     # Cú pháp cron: "phút giờ ngày tháng thứ"
-    # 0 11 * * * = lúc 9:00 UTC = 18:00 giờ Việt Nam
-    - cron: "0 11 * * *"
+    # 0 2 * * * = lúc 2:00 UTC = 11:00 giờ Việt Nam
+    - cron: "0 2 * * *"
   
   # Cho phép bấm nút chạy thủ công trên GitHub để test
   workflow_dispatch:
