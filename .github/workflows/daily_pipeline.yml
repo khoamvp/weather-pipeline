@@ -60,5 +60,5 @@ jobs:
           git config user.email "github-actions[bot]@users.noreply.github.com"
           git add data/raw/ data/clean/
           git fetch origin main
-          git merge -X theirs origin/main
+          git pull --rebase -X theirs origin main
           git push
