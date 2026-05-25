@@ -5,12 +5,12 @@ name: Daily Weather Pipeline
 on:
   schedule:
     # Cú pháp cron: "phút giờ ngày tháng thứ"
-    # 0 2 * * * = lúc 2:00 UTC = 11:00 giờ Việt Nam
-    - cron: "0 2 * * *"
+    # 0 4 * * * = lúc 04:00 UTC = 11:00 trưa giờ Việt Nam
+    - cron: "0 4 * * *"
   
   # Cho phép bấm nút chạy thủ công trên GitHub để test
   workflow_dispatch:
-#
+
 env:
   FORCE_JAVASCRIPT_ACTIONS_TO_NODE24: true
 
@@ -58,7 +58,15 @@ jobs:
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "github-actions[bot]@users.noreply.github.com"
+          
+          # 1. Gom các file dữ liệu mới cào được
           git add data/raw/ data/clean/
-          git fetch origin main
-          git pull --rebase -X theirs origin main
+          
+          # 2. Đóng gói nó lại thành 1 cục commit (QUAN TRỌNG)
+          git commit -m "🌤️ Auto pipeline: $(date '+%Y-%m-%d')" || echo "Không có file mới"
+          
+          # 3. Kéo dữ liệu trên mạng về nếu có thay đổi từ user, xếp gọn gàng
+          git pull --rebase origin main
+          
+          # 4. Phóng toàn bộ lên lại GitHub
           git push
