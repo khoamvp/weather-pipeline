@@ -1,0 +1,6 @@
+city,country,temp_c,feels_like_c,temp_min_c,temp_max_c,humidity_pct,pressure_hpa,weather_main,weather_desc,wind_speed_ms,wind_deg,cloudiness_pct,visibility_m,extracted_at,extracted_date,heat_index,temp_category
+Ho Chi Minh City,VN,33.4,40.4,33.4,33.4,63,1008,Clouds,mây cụm,1.79,237,59,10000,2026-07-22 13:22:55,2026-07-22,30.7,nóng
+Bien Hoa,VN,33.9,37.9,33.9,33.9,49,1008,Clouds,mây cụm,3.08,291,53,10000,2026-07-22 13:22:55,2026-07-22,30.9,nóng
+Vung Tau,VN,28.9,33.6,28.9,28.9,76,1009,Clouds,mây rải rác,6.66,167,47,10000,2026-07-22 13:22:55,2026-07-22,26.4,mát
+Thu Dau Mot,VN,34.0,41.0,34.0,34.0,62,1008,Clouds,mây cụm,2.94,279,57,10000,2026-07-22 13:22:55,2026-07-22,31.2,nóng
+Ba Ria,VN,32.4,37.2,32.4,32.4,57,1009,Clouds,mây rải rác,4.2,192,46,10000,2026-07-22 13:22:55,2026-07-22,29.5,nóng
