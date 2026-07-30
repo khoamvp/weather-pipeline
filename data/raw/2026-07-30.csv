@@ -1,0 +1,6 @@
+city,country,temp_c,feels_like_c,temp_min_c,temp_max_c,humidity_pct,pressure_hpa,weather_main,weather_desc,wind_speed_ms,wind_deg,cloudiness_pct,visibility_m,extracted_at,extracted_date
+Ho Chi Minh City,VN,32.26,39.26,32.26,32.26,72,1004,Rain,mưa vừa,1.79,183,100,4424,2026-07-30 13:21:11,2026-07-30
+Bien Hoa,VN,31.69,38.69,31.69,31.69,73,1005,Rain,mưa vừa,2.53,263,100,2040,2026-07-30 13:21:11,2026-07-30
+Vung Tau,VN,28.16,32.5,28.16,28.16,80,1006,Rain,mưa nhẹ,4.23,211,100,10000,2026-07-30 13:21:11,2026-07-30
+Thu Dau Mot,VN,31.73,38.73,31.73,31.73,72,1005,Rain,mưa vừa,2.86,266,100,10000,2026-07-30 13:21:11,2026-07-30
+Ba Ria,VN,29.52,35.25,29.52,29.52,76,1006,Rain,mưa vừa,4.24,217,100,9385,2026-07-30 13:21:12,2026-07-30
